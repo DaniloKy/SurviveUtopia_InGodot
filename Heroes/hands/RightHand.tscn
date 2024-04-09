@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Pixel Crawler - 1.8/Weapons/Hands/Hands.png" type="Texture" id=1]
+
+[node name="RightHand" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 20.7367, 4.74024, 7.6032, 7.73006 )

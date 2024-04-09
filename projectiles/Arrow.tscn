@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Pixel Crawler - 1.8/Weapons/Wood/Wood.png" type="Texture" id=1]
+[ext_resource path="res://projectiles/Arrow.gd" type="Script" id=2]
+
+[node name="Arrow" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 30, 0, 20, 15 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 3, -2, 8, 0, 3, 2 )

@@ -1,0 +1,141 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://Pixel Crawler - 1.8/Heroes/Rogue/Idle/Idle-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://Heroes/Archer.gd" type="Script" id=2]
+[ext_resource path="res://Pixel Crawler - 1.8/Heroes/Rogue/Run/Run-Sheet.png" type="Texture" id=3]
+[ext_resource path="res://Pixel Crawler - 1.8/Heroes/Rogue/Death/Death-Sheet.png" type="Texture" id=4]
+[ext_resource path="res://weapons/Bow.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Heroes/hands/RightHandGrip.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Heroes/hands/LeftHandGrip.tscn" type="PackedScene" id=7]
+[ext_resource path="res://projectiles/Arrow.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 7, 14.5 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 32, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 32, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 128, 32, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 32, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 256, 32, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 320, 32, 64, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+} ]
+
+[sub_resource type="OccluderPolygon2D" id=20]
+polygon = PoolVector2Array( -8, -6, -9, 5, -6, 6, -6, 8, -9, 16, -4, 16, 2, 12, 4, 16, 10, 16, 7, 6, 9, 4, 8, -10, 6, -11, 1, -13, -5, -11 )
+
+[node name="Archer" type="KinematicBody2D"]
+collision_mask = 31
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 1, 1.5 )
+shape = SubResource( 19 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+animation = "idle"
+frame = 3
+
+[node name="Atack_Timer" type="Timer" parent="."]
+
+[node name="Weapon" type="Node2D" parent="."]
+position = Vector2( 14, 0 )
+
+[node name="Bow" parent="Weapon" instance=ExtResource( 5 )]
+rotation = -6.28319
+
+[node name="Position2D" type="Position2D" parent="Weapon/Bow"]
+position = Vector2( -3, -1.33991e-05 )
+
+[node name="RightHandGrip" parent="Weapon" instance=ExtResource( 6 )]
+position = Vector2( 1, 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource( 20 )
+
+[node name="Arrow" parent="." instance=ExtResource( 8 )]
+position = Vector2( -12, 5 )
+rotation = -1.57079
+
+[node name="LeftHandGrip" parent="Arrow" instance=ExtResource( 7 )]
+position = Vector2( -1, -0.999997 )
+rotation = 1.57079
+
+[connection signal="attack" from="." to="Weapon/Bow" method="_on_Archer_attack"]
+[connection signal="timeout" from="Atack_Timer" to="." method="_on_Atack_Timer_timeout"]
